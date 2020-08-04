@@ -4,26 +4,23 @@ require './app/models/grid.rb'
 require './app/models/ship.rb'
 require './app/models/coord.rb'
 require './app/models/position.rb'
-require 'byebug'
+
 class GamePlay
   def get_input
     puts("Enter width and height of battle area (for example: 5 E): ");
-    #bt_width, bt_height = gets.split(" ")
-    bt_width, bt_height = 5, 'E'
+    bt_width, bt_height = gets.split(" ")
     puts "Width: #{bt_width}, Height: #{bt_height}"
 
     puts("Enter Ship Count: ");
-    #ship_count = gets.to_i
-    ship_count = 2
+    ship_count = gets.to_i
     puts "Total ships with each plAyer: #{ship_count}"
 
     ship_cordinates = []
     ship_count.times do
       puts("Enter ship info (for example: Q 1 1 A1 B2): ");
-      #ship_info = gets.split(" ")
-      #ship_cordinates << ship_info
+      ship_info = gets.split(" ")
+      ship_cordinates << ship_info
     end
-    ship_cordinates = [["Q", "1", "1", "A1", "B2"], ["P", "2", "1", "D4", "C3"]]
     puts "Ship Info: Count: #{ship_count}: Coordinates: #{ship_cordinates}"
     new_game = Game.new
     new_game.call(bt_height, bt_width, ship_count, ship_cordinates)
@@ -52,6 +49,5 @@ class GamePlay
   end
 end
 
-
- battle_ship_game = GamePlay.new
- battle_ship_game.start
+battle_ship_game = GamePlay.new
+battle_ship_game.start

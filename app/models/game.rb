@@ -9,7 +9,7 @@ class Game
 
   def call(bt_width, bt_height, ship_count, ship_info)
     winner_name = play(bt_width, bt_height, ship_count, ship_info)
-    output.puts("******* #{winner_name} wins the game") if winner_name
+    output.puts("******* #{winner_name} wins the game *******") if winner_name
   end
 
   def play(bt_height, bt_width, ship_count, ship_cordinates)
@@ -35,7 +35,7 @@ class Game
       width = ship_detail.shift
       all_players.each do |player|
         cordinate = ship_detail.shift
-        output.puts("******* #{player.name} turn >>")
+        output.puts("******* Placing #{player.name} with cordinate #{cordinate} *******")
         player.setup(ship_type, len, width, cordinate)
       end
     end
@@ -60,11 +60,10 @@ class Game
 
   def fight
     pl_missiles = {}
-    mis_loc_list = [['A1', 'B2', 'B2', 'B3'], ['A1', 'B2', 'B3', 'A1', 'D1', 'E1', 'D4', 'D4', 'D5', 'D5']]
     @players.each do |player|
       @output.puts("Enter Missile location for #{player.name} space separated (for example: A1 B2 B2 B3): ");
-      #mis_loc_list = gets.split(" ")
-      pl_missiles[player] = mis_loc_list.shift
+      mis_loc_list = gets.split(" ")
+      pl_missiles[player] = mis_loc_list
     end
     player = @players[0]
     loop do
@@ -75,9 +74,8 @@ class Game
       mis_list = pl_missiles[player]
       misl_position = mis_list.shift
       pl_missiles[player] = mis_list
-      output.puts("******* #{player.name} turn for attack >>")
       damage_status = player.shot(misl_position)
-      output.puts("******* #{player.name} attacked at #{misl_position} with hit status #{damage_status}")
+      output.puts("******* #{player.name} fires a missile with target #{misl_position} with hit status: #{damage_status}")
       if player.enemy.gameover?
         @winner = player
         return
